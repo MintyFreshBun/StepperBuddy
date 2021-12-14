@@ -53,7 +53,7 @@ app.use('/clients',router_users)
 app.get('*', function (req, res) {
     res.status(404).json({ message: 'Invalid Route' });
 })
-mongoose.connect('mongodb+srv://esmadUser:ESMAD12345@stepperbuddy.zjaay.mongodb.net/StepperData?retryWrites=true&w=majority')
+mongoose.connect('temp untill i add a new pass')
 const db = mongoose.connection;
 
 
