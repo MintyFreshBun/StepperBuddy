@@ -53,7 +53,7 @@ app.use('/clients',router_users)
 app.get('*', function (req, res) {
     res.status(404).json({ message: 'Invalid Route' });
 })
-mongoose.connect('temp untill i add a new pass')
+mongoose.connect(process.env.MONGOOSE_CONNECT)
 const db = mongoose.connection;
 
 
