@@ -9,6 +9,10 @@ const host = process.env.HOST || 'localhost';
 const router_login = require('./routes/routes_login');
 const router_users = require('./routes/routes_users')
 */
+
+const router_users = require('./routes/routes_users')
+
+
 const utilities = require('./util/utilities')
 
 
@@ -49,6 +53,9 @@ app.use(auth);
 app.use('/', router_login)
 app.use('/clients',router_users)
 */
+app.use('/users',router_users)
+
+
 // handle invalid routes
 app.get('*', function (req, res) {
     res.status(404).json({ message: 'Invalid Route' });
