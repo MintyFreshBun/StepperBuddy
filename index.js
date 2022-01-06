@@ -19,7 +19,7 @@ const utilities = require('./util/utilities')
 //-----Authentication setup-------------
 const auth = function(req, res, next) {
     console.log(req.url);
-    let exceptions = ['/login', '/register',]; 
+    let exceptions = ['/login', '/users/register',]; 
     if(exceptions.indexOf(req.url) >= 0) {
         next(); 
     } else {

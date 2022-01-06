@@ -11,14 +11,14 @@ const userSchema = new mongoose.Schema({
     distance: Number,
     level:Number,
     exp: Number,
-    partner: [{ type: Schema.Types.ObjectId, ref: 'Achive' }],
-    items: [{ type: Schema.Types.ObjectId, ref: 'Items' }],
-    tasks: [{ type: Schema.Types.ObjectId, ref: 'Partners' }],
-    achivements: [{ type: Schema.Types.ObjectId, ref: 'Tasks' }],
+    partner: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Partner' }],
+    items: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Items' }],
+    tasks: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Tasks' }],
+    achivements: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Achive' }],
     
 
 })
 
-const Users = mongoose.model('Users', userSchema);
+const Users = mongoose.model('users', userSchema);
 
 exports.Users = Users;

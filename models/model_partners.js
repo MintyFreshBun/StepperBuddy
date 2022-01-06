@@ -6,6 +6,6 @@ const partnerSchema = new mongoose.Schema({
 
 })
 
-const Partners = mongoose.model('Partners', partnerSchema);
+const Partners = mongoose.model('partners', partnerSchema);
 
 exports.Partners = Partners;
