@@ -5,7 +5,7 @@ const controller = require('../controllers/controller_users');
 
 
 
-
+//-------------------------Register  new User
 router.post('/register', [
     body('username').notEmpty().escape(), 
     body('password').notEmpty().escape(),
@@ -19,7 +19,17 @@ router.post('/register', [
             res.status(404).json({errors: errors.array()})
         }
 })
+//------------------------Login User
 
+router.post('/login',  function (req, res) {
+    controller.login(req, res); 
+})
+
+
+
+router.get('/userinfo',  function (req, res) {
+    controller.loggedUser(req, res); 
+})
 
 
 //------------------------------------Test routes to check if everything checks out on postman------------------

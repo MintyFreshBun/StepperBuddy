@@ -25,5 +25,24 @@ const validateToken = (token, callback) => {
     })
 }
 
+const getUserIdToken = (token, callback) => {
+    if(!token) {
+        return callback(false); 
+    }
+    
+    let secret =  process.env.JWT_KEY; 
+    jwt.verify(token.replace('Bearer ', ''), secret, function(error, decoded) {
+        
+        if(error) {
+            return callback(null);
+        } else {
+            return callback(decoded.data.user)
+        }
+    })
+}
+
+
+
 exports.generateToken = generateToken
 exports.validateToken = validateToken
+exports.getUserIdToken = getUserIdToken
