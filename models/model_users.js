@@ -11,10 +11,10 @@ const userSchema = new mongoose.Schema({
     distance: Number,
     level:Number,
     exp: Number,
-    partner: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Partner' }],
-    items: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Items' }],
-    tasks: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Tasks' }],
-    achivements: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Achive' }],
+    partner: [{ type:mongoose.Schema.Types.ObjectId, ref: 'partner' }],
+    items: [{ type:mongoose.Schema.Types.ObjectId, ref: 'items' }],
+    tasks: [{ type:mongoose.Schema.Types.ObjectId, ref: 'tasks' }],
+    achivements: [{ type:mongoose.Schema.Types.ObjectId, ref: 'achivements' }],
     
 
 })

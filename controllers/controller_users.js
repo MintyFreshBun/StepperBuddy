@@ -15,6 +15,7 @@ const register = (req, res) => {
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(req.body.password, salt, function(err, hash) {
             
+            // create new User and its other components
             const usertoCreate = new Users({ 
                 username: req.body.username, 
                 password: hash ,
@@ -25,11 +26,7 @@ const register = (req, res) => {
                 calsburn: 0,
                 distance: 0,
                 level:0,
-                exp: 0,
-                partner: [],
-                items: [],
-                tasks: [],
-                achivements: [],
+                exp: 0
             });
             // do a find to see if the username is taken
             Users.find({username: req.body.username}, function (err, user) {

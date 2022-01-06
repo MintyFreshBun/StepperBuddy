@@ -19,7 +19,8 @@ const utilities = require('./util/utilities')
 //-----Authentication setup-------------
 const auth = function(req, res, next) {
     console.log(req.url);
-    let exceptions = ['/login', '/users/register',]; 
+    // remeber some exceptions here are for testing ! remember to remove them later when your doing the cleaning and documentation!
+    let exceptions = ['/login', '/users/register','/users/list']; 
     if(exceptions.indexOf(req.url) >= 0) {
         next(); 
     } else {

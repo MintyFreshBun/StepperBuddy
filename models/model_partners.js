@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const partnerSchema = new mongoose.Schema({    
     level: String, 
-    exp: Number
+    exp: Number,
+    skin: String
 
 })
 
