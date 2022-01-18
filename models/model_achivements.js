@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const achivementSchema = new mongoose.Schema({    
+const achivementSchema = new mongoose.Schema({  
+    user_id: mongoose.SchemaTypes.ObjectId,  
     title: String, 
     progress: Number,
     total: Number,
@@ -8,6 +9,6 @@ const achivementSchema = new mongoose.Schema({
 
 })
 
-const Achivements = mongoose.model('achivements', achivementSchema);
+const Achivements = mongoose.model('Achivements', achivementSchema);
 
 exports.Achivements = Achivements;

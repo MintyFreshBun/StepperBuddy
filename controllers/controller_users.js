@@ -1,6 +1,15 @@
 const { response } = require('express');
-const Model = require('../models/model_users'); 
-const Users = Model.Users;
+const ModelUsers = require('../models/model_users'); 
+const Users = ModelUsers.Users;
+
+const ModelPartners = require('../models/model_partners')
+const Partners = ModelPartners.Partners;
+
+const ModelItems = require('../models/model_items')
+const Items = ModelItems.Items;
+
+
+
 
 // for decoding the token 
 var jwt = require('jsonwebtoken');
@@ -30,8 +39,16 @@ const register = (req, res) => {
                 calsburn: 0,
                 distance: 0,
                 level:0,
-                exp: 0
+                exp: 0,
+                partner:[],
+                items:[],
+                tasks:[],
+                achivements:[]
+
             });
+
+            
+
             // do a find to see if the username is taken
             Users.find({username: req.body.username}, function (err, user) {
                 if (err) {
@@ -47,6 +64,55 @@ const register = (req, res) => {
                         }
                         //res.status(200).json("Registered New User");
                         // after creating the user created the the others with the id of the user 
+                        //check the id for testing
+                        console.log(newUser._id);
+
+                        const newItems = new Items({
+
+                            user_id: newUser._id,    
+                            candy: 0, 
+                            jam: 0
+
+                        });
+
+                        newItems.save(function(err){
+                            if (err) {
+                                res.status(400).send(err); 
+                            }
+
+                            const newPartner = new Partners({
+
+                                user_id: newUser._id,    
+                                level: 1, 
+                                exp: 0,
+                                skin: "default"
+    
+                            });
+
+                            newPartner.save(function(err){
+
+                                if (err) {
+                                    res.status(400).send(err); 
+                                }
+
+                                res.status(200).json("Registered New User");
+
+
+
+                            })
+
+
+
+
+
+                        })
+
+
+
+
+
+
+
                     })
                 }
             })
@@ -110,16 +176,18 @@ const loggedUser = (req, res) => {
 
 const updateStats = (req, res) => {
     //find the user by id, but we first need to get it from the current logged Token 
-    
 
-    Users.findByIdAndUpdate(loggedId,req.body,function (err, user) {
-        if (err) {
-            res.status(400).send(err); 
-        }
-        res.status(200).send("User data updated");
-    })
+    utilities.getUserIdToken(req.headers.authorization,(result)=> { 
+        console.log(result)
+        
 
-    
+        Users.findByIdAndUpdate(result,req.body,function (err, user) {
+            if (err) {
+                res.status(400).send(err); 
+            }
+            res.status(200).send("user data updated");
+        })}
+    )
     
     
 }
@@ -147,8 +215,7 @@ const list = (req, res) => {
             res.status(400).send(err); 
         }
         res.status(200).json(users); 
-    })
-    
+    }).populate('registos')
     
 }
 

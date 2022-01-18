@@ -26,10 +26,19 @@ router.post('/login',  function (req, res) {
 })
 
 
-
+// get the users information
 router.get('/userinfo',  function (req, res) {
     controller.loggedUser(req, res); 
 })
+
+
+// Update the users information acording to the body
+router.put('/userUpdate' , function (req, res) {
+    controller.updateStats(req, res); 
+})
+
+
+//Update with one item , in this case when updating one item 
 
 
 //------------------------------------Test routes to check if everything checks out on postman------------------
