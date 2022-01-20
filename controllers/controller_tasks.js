@@ -42,20 +42,15 @@ const addTask = (req, res) => {
 
                 // after the taks is created , add the task's id to the users task array
 
-                Users.findByIdAndUpdate(user._id,{ $push: {tasks:newTask._id}}, function(err){
+                Users.findByIdAndUpdate(user._id,{ $push: {tasks:newTask._id}}, function(err,updatedUser){
                     if (err) {
                         res.status(400).send(err); 
                     }
+                    res.status(200).json("Task has been created");
                     
-                    // should i return the new array instead in order update the current one instead of doing 2 requests?
-                    res.status(200).json("New task added");
-
                 })
 
-
-
             })
-
 
 
         })
@@ -102,7 +97,7 @@ const findTasks = (req,res) => {
 
 //------------DELETE: remove Tasks
 
-const deleteTasks = (req,res) =>{
+const deleteTask = (req,res) =>{   
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
         console.log(result)
@@ -111,14 +106,59 @@ const deleteTasks = (req,res) =>{
                 res.status(400).send(err); 
             }
 
-            //--- find and delete the tasks with there ids
+            //--- delete task Tasks  from Logged user
 
+            Tasks.findByIdAndDelete(req.query.task_id,function(err,){
+                if (err) {
+                    res.status(400).send(err); 
+                }
+
+                // now delete on users task array
+
+                Users.findByIdAndUpdate(result ,{ $pull: {tasks: req.query.task_id }},function(err){
+
+                    if (err) {
+                        res.status(400).send(err); 
+                    }
+                    res.status(200).json("Task has been removed");
+
+                })
+        
+                
+            })
             
 
+            
 
             
         })
     }) 
+    
+    
+
+
+   
+
+}
+
+//-----------------Patch the tasks status 
+
+const switchComplete = (req,res) => {
+
+    // find user trough the token
+
+
+    Tasks.findByIdAndUpdate(req.query.task_id,{'complete':req.body.status},function(err){
+        if (err) {
+            res.status(400).send(err); 
+        }
+
+        res.status(200).json("Task status has been updated");
+
+
+    })
+
+
 
 }
 
@@ -129,4 +169,6 @@ const deleteTasks = (req,res) =>{
 //---------EXPORTS OF THE FUCTION REQUESTS-------------
 exports.addTask = addTask;
 exports.findTasks = findTasks;
+exports.deleteTask = deleteTask;
+exports.switchComplete = switchComplete;
 

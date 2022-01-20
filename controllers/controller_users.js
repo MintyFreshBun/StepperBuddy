@@ -169,11 +169,12 @@ const loggedUser = (req, res) => {
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
         console.log(result)
         Users.findById(result,function (err, user) {
-        if (err) {
-            res.status(400).send(err); 
-        }
-        res.status(200).json(user); 
-    })}) 
+            if (err) {
+                res.status(400).send(err); 
+            }
+            res.status(200).json(user); 
+        }).populate('tasks')
+    }) 
 
     
 }
