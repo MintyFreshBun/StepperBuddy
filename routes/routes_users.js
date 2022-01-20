@@ -11,6 +11,9 @@ router.post('/register', [
     body('password').notEmpty().escape(),
     body('nickname').notEmpty().escape(),
     body('email').notEmpty().escape(),
+    body('height').notEmpty().escape(),
+    body('weight').notEmpty().escape(),
+    body('age').notEmpty().escape()
 ],  function (req, res) {
         const errors = validationResult(req); 
         if (errors.isEmpty()) {

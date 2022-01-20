@@ -40,6 +40,9 @@ const register = (req, res) => {
                 distance: 0,
                 level:0,
                 exp: 0,
+                height:0.00,
+                weight:0.00,
+                age:0,
                 partner:[],
                 items:[],
                 tasks:[],
@@ -75,42 +78,48 @@ const register = (req, res) => {
 
                         });
 
-                        newItems.save(function(err){
+                        newItems.save(function(err,newItem){
                             if (err) {
                                 res.status(400).send(err); 
                             }
 
-                            const newPartner = new Partners({
+                            // add the newly added to the user's item array
 
-                                user_id: newUser._id,    
-                                level: 1, 
-                                exp: 0,
-                                skin: "default"
-    
-                            });
-
-                            newPartner.save(function(err){
-
+                            Users.findByIdAndUpdate(newUser._id,{ $push: {items:newItem._id}}, function(err){
                                 if (err) {
                                     res.status(400).send(err); 
                                 }
 
-                                res.status(200).json("Registered New User");
 
+                                const newPartner = new Partners({
 
+                                    user_id: newUser._id,    
+                                    level: 1, 
+                                    exp: 0,
+                                    skin: "default"
+        
+                                });
+    
+                                newPartner.save(function(err,newPartner){
+    
+                                    if (err) {
+                                        res.status(400).send(err); 
+                                    }
+    
+                                    Users.findByIdAndUpdate(newUser._id,{ $push: {partner:newPartner._id}},function(err){
+
+                                        if (err) {
+                                            res.status(400).send(err); 
+                                        }
+                                        res.status(200).json("Registered New User");
+
+                                    })
+    
+                                })
 
                             })
 
-
-
-
-
                         })
-
-
-
-
-
 
 
                     })
