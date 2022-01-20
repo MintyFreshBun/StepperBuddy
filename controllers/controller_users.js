@@ -176,8 +176,6 @@ const loggedUser = (req, res) => {
     })}) 
 
     
-    
-    
 }
 
 
@@ -190,7 +188,7 @@ const updateStats = (req, res) => {
         console.log(result)
         
 
-        Users.findByIdAndUpdate(result,req.body,function (err, user) {
+        Users.findByIdAndUpdate(result,req.body,function (err) {
             if (err) {
                 res.status(400).send(err); 
             }

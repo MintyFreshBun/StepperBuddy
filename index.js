@@ -8,6 +8,7 @@ const host = process.env.HOST || 'localhost';
 
 // --user routes
 const router_users = require('./routes/routes_users')
+const router_tasks = require('./routes/routes_tasks')
 
 
 //--Utilities for JWT
@@ -49,6 +50,7 @@ app.use(express.json());
 
 app.use(auth);
 app.use('/users',router_users)
+app.use('/tasks',router_tasks)
 
 
 // handle invalid routes
