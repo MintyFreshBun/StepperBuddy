@@ -1,7 +1,7 @@
-const { query } = require('express');
+
 const express = require('express'); 
 const router = express.Router(); 
-const { body,param, validationResult } = require('express-validator'); 
+const { body, validationResult } = require('express-validator'); 
 const controller = require('../controllers/controller_partners');
 
 
@@ -36,8 +36,8 @@ router.patch('/changeSkin',[
 //----------PUT partners stats------------
 
 router.put('/updatePartner', [
-    body('exp').notEmpty().escape(),
-    body('level').notEmpty().escape(),    
+    body('exp').notEmpty().isNumeric().escape(),
+    body('level').notEmpty().isNumeric().escape(),    
 ],  function (req, res) {
         const errors = validationResult(req); 
         if (errors.isEmpty()) {

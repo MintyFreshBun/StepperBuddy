@@ -124,7 +124,7 @@ const register = (req, res) => {
                                         let new_achivements = achivements_contruction(newUser._id);
 
                                         Achivements.create(new_achivements,function(err,new_achive){
-                                            console.log(new_achive);
+                                            
 
                                             if (err) {
                                                 res.status(400).send(err); 
@@ -205,13 +205,13 @@ const loggedUser = (req, res) => {
     //find the user by id, but we first need to get it from the current logged Token 
     
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+        
         Users.findById(result,function (err, user) {
             if (err) {
                 res.status(400).send(err); 
             }
             res.status(200).json(user); 
-        }).populate('tasks')
+        }).populate('tasks').populate('achivements').populate('items').populate('partner')
     }) 
 
     
@@ -224,7 +224,7 @@ const updateStats = (req, res) => {
     //find the user by id, but we first need to get it from the current logged Token 
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+        
         
 
         Users.findByIdAndUpdate(result,req.body,function (err) {

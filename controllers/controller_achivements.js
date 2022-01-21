@@ -27,7 +27,7 @@ const getAchivements = (req,res) =>{
     // find user trough the token
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+    
         Users.findById(result,function (err, user) {
             if (err) {
                 res.status(400).send(err); 

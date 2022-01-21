@@ -14,8 +14,17 @@ router.get('/getItems',  function (req, res) {
 
 
 // Update the users information acording to the body
-router.put('/updateItems' , function (req, res) {
-    controller.addItems(req, res); 
+
+router.put('/updateItems', [
+    body('candy').notEmpty().isNumeric().escape(),
+    body('jam').notEmpty().isNumeric().escape(),    
+],  function (req, res) {
+        const errors = validationResult(req); 
+        if (errors.isEmpty()) {
+            controller.addItems(req, res); 
+        } else {
+            res.status(404).json({errors: errors.array()})
+        }
 })
 
 

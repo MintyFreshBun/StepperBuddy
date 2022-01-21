@@ -1,10 +1,13 @@
 const { response } = require('express');
-var cron = require('node-cron');
 const ModelUsers = require('../models/model_users'); 
 const Users = ModelUsers.Users;
 
 const ModelTasks = require('../models/model_task')
 const Tasks = ModelTasks.Tasks;
+
+//cron requirement
+
+const cron = require("node-cron");
 
 
 // for decoding the token 
@@ -23,7 +26,7 @@ const addTask = (req, res) => {
     //find the user by id, but we first need to get it from the current logged Token 
     
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+        
         Users.findById(result,function (err, user) {
             if (err) {
                 res.status(400).send(err); 
@@ -70,7 +73,7 @@ const findTasks = (req,res) => {
     // find user trough the token
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+        
         Users.findById(result,function (err, user) {
             if (err) {
                 res.status(400).send(err); 
@@ -101,7 +104,7 @@ const findTasks = (req,res) => {
 const deleteTask = (req,res) =>{   
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+        
         Users.findById(result,function (err, user) {
             if (err) {
                 res.status(400).send(err); 
@@ -143,6 +146,7 @@ const deleteTask = (req,res) =>{
 }
 
 
+
 //-----------------Patch the tasks status 
 
 const switchComplete = (req,res) => {
@@ -163,13 +167,6 @@ const switchComplete = (req,res) => {
 
 
 }
-
-
-
-
-//-----------------------**************EXPEREMENTAL CRON******************---------------------
-// using npm cron to make a 24 hour timer to remove completed daily tasks and give xp to user
-
 
 
 

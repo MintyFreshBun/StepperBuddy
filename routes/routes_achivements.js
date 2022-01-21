@@ -1,7 +1,7 @@
-const { query } = require('express');
+
 const express = require('express'); 
 const router = express.Router(); 
-const { body,param, validationResult } = require('express-validator'); 
+const { body, validationResult } = require('express-validator'); 
 const controller = require('../controllers/controller_achivements');
 
 
@@ -20,8 +20,8 @@ router.get('/getAchivements',function(req,res){
 //----------PUT Updated Achivement------------
 
 router.put('/updateAchivement', [
-    body('progress').notEmpty().escape(),
-    body('status').notEmpty().escape(),    
+    body('progress').notEmpty().isNumeric().escape(),
+    body('status').notEmpty().isBoolean().escape(),    
 ],  function (req, res) {
         const errors = validationResult(req); 
         if (errors.isEmpty()) {

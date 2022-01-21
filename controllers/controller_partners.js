@@ -23,7 +23,7 @@ const bcrypt = require('bcrypt');
 const updatePartner = (req,res) =>{
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+        
         Users.findById(result,function (err, user) {
             if (err) {
                 res.status(400).send(err); 
@@ -52,7 +52,7 @@ const updatePartner = (req,res) =>{
 const updateSkin = (req,res) =>{
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+       
         Users.findById(result,function (err, user) {
             if (err) {
                 res.status(400).send(err); 
@@ -83,7 +83,7 @@ const getPartner = (req,res) =>{
     // find user trough the token
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
-        console.log(result)
+       
         Users.findById(result,function (err, user) {
             if (err) {
                 res.status(400).send(err); 

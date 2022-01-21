@@ -10,10 +10,10 @@ router.post('/register', [
     body('username').notEmpty().escape(), 
     body('password').notEmpty().escape(),
     body('nickname').notEmpty().escape(),
-    body('email').notEmpty().escape(),
-    body('height').notEmpty().escape(),
-    body('weight').notEmpty().escape(),
-    body('age').notEmpty().escape()
+    body('email').notEmpty().isEmail().escape(),
+    body('height').notEmpty().isFloat().escape(),
+    body('weight').notEmpty().isFloat().escape(),
+    body('age').notEmpty().isNumeric().escape()
 ],  function (req, res) {
         const errors = validationResult(req); 
         if (errors.isEmpty()) {
