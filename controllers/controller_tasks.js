@@ -1,4 +1,5 @@
 const { response } = require('express');
+var cron = require('node-cron');
 const ModelUsers = require('../models/model_users'); 
 const Users = ModelUsers.Users;
 
@@ -141,6 +142,7 @@ const deleteTask = (req,res) =>{
 
 }
 
+
 //-----------------Patch the tasks status 
 
 const switchComplete = (req,res) => {
@@ -161,6 +163,12 @@ const switchComplete = (req,res) => {
 
 
 }
+
+
+
+
+//-----------------------**************EXPEREMENTAL CRON******************---------------------
+// using npm cron to make a 24 hour timer to remove completed daily tasks and give xp to user
 
 
 
