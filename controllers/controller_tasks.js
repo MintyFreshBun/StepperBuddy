@@ -145,7 +145,7 @@ const deleteTask = (req,res) =>{
 
 const switchComplete = (req,res) => {
 
-    // find user trough the token
+    // sence the tasks will be in the app the selected infor will be sent on the body and querry
 
 
     Tasks.findByIdAndUpdate(req.query.task_id,{'complete':req.body.status},function(err){

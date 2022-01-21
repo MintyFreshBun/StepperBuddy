@@ -9,6 +9,10 @@ const ModelItems = require('../models/model_items')
 const Items = ModelItems.Items;
 
 
+const ModelAchive = require('../models/model_achivements')
+const Achivements = ModelAchive.Achivements;
+
+
 
 
 // for decoding the token 
@@ -111,7 +115,40 @@ const register = (req, res) => {
                                         if (err) {
                                             res.status(400).send(err); 
                                         }
-                                        res.status(200).json("Registered New User");
+                                        //res.status(200).json("Registered New User");
+
+
+                                        // now finally add the achivements , use model.Create for multitple ones
+                                        // use an array to make it easyer
+
+                                        let new_achivements = achivements_contruction(newUser._id);
+
+                                        Achivements.create(new_achivements,function(err,new_achive){
+                                            console.log(new_achive);
+
+                                            if (err) {
+                                                res.status(400).send(err); 
+                                            }
+
+                                            Users.findByIdAndUpdate(newUser._id,{ $push: {achivements:new_achive}},function(err){
+
+                                                 if (err) {
+                                                    res.status(400).send(err); 
+                                                }
+                                                res.status(200).json("Registered New User");
+
+                                            })
+
+                                           
+                                            
+
+
+
+                                        })
+
+
+                                        
+
 
                                     })
                                     
@@ -203,7 +240,141 @@ const updateStats = (req, res) => {
 
 
 
+//---------------------Call functions so the request code doesnt get looooong-----
 
+function achivements_contruction (logger_user_id){
+
+    let achiv_array = [
+        //Achivement km 1
+        {
+            user_id:logger_user_id,  
+            title: "Bronze Runner" ,
+            progress: 0,
+            description: "Walk a total of 10 km",
+            total: 10,
+            type: "km",    
+            complete: false
+        },
+        //Achivement km 2
+        {
+            user_id:logger_user_id,  
+            title: "Silver Runner" ,
+            description: "Walk a total of 100 km",
+            progress: 0,
+            total: 100,
+            type: "km",    
+            complete: false
+        },
+        //Achivement km 3
+        {
+            user_id:logger_user_id,  
+            title: "Gold Runner" ,
+            description: "Walk a total of 1000 km",
+            progress: 0,
+            total: 1000,
+            type: "km",    
+            complete: false
+        },
+        //Achivement steps 1------------------
+        {
+            user_id:logger_user_id,  
+            title: "Daily Steps" ,
+            description: "Take 10000 steps",
+            progress: 0,
+            total: 10000,
+            type: "steps",    
+            complete: false
+        },
+        //Achivement steps 2
+        {
+            user_id:logger_user_id,  
+            title: "Weekly Steps" ,
+            description: "Take 70000 steps",
+            progress: 0,
+            total: 70000,
+            type: "steps",    
+            complete: false
+        },
+        //Achivement steps 3
+        {
+            user_id:logger_user_id,  
+            title: "Monthly Steps" ,
+            description: "Take 300000 steps",
+            progress: 0,
+            total: 300000,
+            type: "steps",    
+            complete: false
+        },
+        //Achivement level 1----------------
+        {
+            user_id:logger_user_id,  
+            title: "Just be beginning" ,
+            description: "Reach level 3",
+            progress: 0,
+            total: 3,
+            type: "level",    
+            complete: false
+        },
+
+        //Achivement level 2
+        {
+            user_id:logger_user_id,  
+            title: "Getting Stronger" ,
+            description: "Reach level 10",
+            progress: 0,
+            total: 10,
+            type: "level",    
+            complete: false
+        },
+
+        //Achivement level 3
+        {
+            user_id:logger_user_id,  
+            title: "Stronger , Faster" ,
+            description: "Reach level 20",
+            progress: 0,
+            total: 20,
+            type: "level",    
+            complete: false
+        },
+        //Achivements partner level 1------------
+        {
+            user_id:logger_user_id,  
+            title: "Hes growing" ,
+            description: "Level up Partner to level 5",
+            progress: 0,
+            total: 5,
+            type: "partner",    
+            complete: false
+        },
+
+        //Achivements partner level 2
+        {
+            user_id:logger_user_id,  
+            title: "Hes growing" ,
+            description: "Level up Partner to level 10",
+            progress: 0,
+            total: 10,
+            type: "partner",    
+            complete: false
+        },
+
+        {
+            user_id:logger_user_id,  
+            title: "Hes growing" ,
+            description: "Level up Partner to level 20",
+            progress: 0,
+            total: 20,
+            type: "partner",    
+            complete: false
+        },
+
+    ];
+
+
+
+    return achiv_array;
+}
 
 
 

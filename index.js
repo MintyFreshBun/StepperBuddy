@@ -11,6 +11,7 @@ const router_users = require('./routes/routes_users')
 const router_tasks = require('./routes/routes_tasks')
 const router_items = require('./routes/routes_items')
 const router_partners = require('./routes/routes_partners')
+const router_achivements = require('./routes/routes_achivements')
 
 
 //--Utilities for JWT
@@ -55,6 +56,7 @@ app.use('/users',router_users)
 app.use('/tasks',router_tasks)
 app.use('/items',router_items)
 app.use('/partners',router_partners)
+app.use('/achivements',router_achivements)
 
 
 
