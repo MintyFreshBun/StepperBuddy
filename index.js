@@ -39,12 +39,10 @@ const auth = function(req, res, next) {
 
 //-------express-Swagger-genetrator-------------
 
-/* once its mostly complete start doing the swagger
-
 const expressSwagger = require('express-swagger-generator')(app); 
 const options = require('./swagger_conf'); 
 expressSwagger(options); 
-*/
+
 
 // ---- http://localhost:3000/api-docs use this to acess swagger
 

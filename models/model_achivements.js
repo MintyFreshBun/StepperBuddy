@@ -1,4 +1,14 @@
-const { type } = require('express/lib/response');
+
+/**
+ * @typedef Achivements
+ * @property {id} user_id.required
+ * @property {string} title.required
+ * @property {string} description.required
+ * @property {number} progress.required
+ * @property {number} total.required
+ * @property {string} type.required
+ * @property {boolean} complete.required
+ */
 const mongoose = require('mongoose');
 
 const achivementSchema = new mongoose.Schema({  

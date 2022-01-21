@@ -20,6 +20,7 @@ const bcrypt = require('bcrypt');
 
 // update partner levels and exp
 
+
 const updatePartner = (req,res) =>{
 
     utilities.getUserIdToken(req.headers.authorization,(result)=> { 
