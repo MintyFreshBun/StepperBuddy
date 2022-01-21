@@ -112,3 +112,4 @@ const getPartner = (req,res) =>{
 //---------EXPORTS OF THE FUCTION REQUESTS-------------
 exports.getPartner = getPartner;
 exports.updatePartner = updatePartner;
+exports.updateSkin = updateSkin
