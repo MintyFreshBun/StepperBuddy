@@ -91,7 +91,7 @@ router.delete('/deleteTask',[
 
 router.patch('/taskStatus',[
     body('status').notEmpty().isBoolean().escape(),
-    param('task_id').notEmpty().isString().escape()
+    //param('task_id').notEmpty().isString().escape()
 ], function( req,res){
     const errors = validationResult(req); 
         if (errors.isEmpty()) {
