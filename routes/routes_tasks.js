@@ -1,7 +1,7 @@
 
 const express = require('express'); 
 const router = express.Router(); 
-const { body,param, validationResult } = require('express-validator'); 
+const { body,query, validationResult } = require('express-validator'); 
 const controller = require('../controllers/controller_tasks');
 
 
@@ -64,7 +64,7 @@ router.post('/newTask', [
  */
 
 router.delete('/deleteTask',[
-    param('task_id').notEmpty().escape(),
+    query('task_id').notEmpty().escape(),
 ], function( req,res){
     const errors = validationResult(req); 
         if (errors.isEmpty()) {
@@ -91,7 +91,7 @@ router.delete('/deleteTask',[
 
 router.patch('/taskStatus',[
     body('status').notEmpty().isBoolean().escape(),
-    param('task_id').notEmpty().escape(),   
+    query('task_id').notEmpty().escape(),   
 ], function( req,res){
     const errors = validationResult(req); 
         if (errors.isEmpty()) {
