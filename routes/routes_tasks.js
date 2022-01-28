@@ -76,7 +76,7 @@ router.delete('/deleteTask',[
 //------PATCH a tasks status------
 
 /**
- * @route PATCH /taskStatus{task_id}
+ * @route PUT /taskStatus{task_id}
  * @group Tasks
  * @param {string} task_id.path - task's id 
  * @param {string} object.body - tasks status ex :{complete:true}
@@ -89,7 +89,7 @@ router.delete('/deleteTask',[
 
 
 
-router.patch('/taskStatus',[
+router.put('/taskStatus',[
     body('status').notEmpty().isBoolean().escape(),
     query('task_id').notEmpty().escape(),   
 ], function( req,res){
