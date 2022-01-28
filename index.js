@@ -1,6 +1,7 @@
 require('dotenv').config(); 
 const express = require('express');
 const mongoose = require('mongoose'); 
+const cron = require('node-cron');
 const app = express(); 
 const port = process.env.PORT ||3000;
 const host = process.env.HOST || 'localhost'; 
@@ -74,3 +75,18 @@ db.once('open', function() {
 app.listen(port, () => {
     console.log(`Server Running!!! http://${host}:${port}`)
 }) 
+
+//--------------crone request - execute
+
+
+//var request = require('request');
+var cron = require('cron');
+
+
+cron.schedule('0 1 * * *', () => {
+    console.log('Running a job at 01:00 at Lisbon Portugal timezone, setting the daily steps to zero, TeST');    
+    
+  }, {
+    scheduled: true,
+    timezone: "Europe/Lisbon"
+  });
