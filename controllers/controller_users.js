@@ -377,34 +377,33 @@ function achivements_contruction (logger_user_id){
 }
 
 
-
-
-
-
-
-
-
-
-//---------------------- TEST REQUESTS FOR POSTMAN AND CHECKING --------------------------
-
-
-const list = (req, res) => {
-    //show all the user lists    
-    Users.find(function (err, users) {
+//----------------------------REQUESTS FOR CORN TO USE-----------------------
+// reset the daily steps to 0 once it hits 1 AM 
+const dailyRestUpdate = (req,res) => {
+    
+    Users.updateMany({dailysteps: {$gt : 0}}, {dailysteps : 0}, function (err){
         if (err) {
             res.status(400).send(err); 
         }
-        res.status(200).json(users); 
+        res.status(200).send("dailysteps reset completed");
+
     })
-    
+
 }
+
+
+
+
+
+
+
 
 
 
 
 //---------EXPORTS OF THE FUCTION REQUESTS-------------
 exports.register = register;
-exports.list = list;
 exports.login = login;
 exports.updateStats = updateStats;
 exports.loggedUser = loggedUser;
+exports.dailyRestUpdate = dailyRestUpdate;

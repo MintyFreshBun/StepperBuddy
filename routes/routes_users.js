@@ -13,7 +13,6 @@ const controller = require('../controllers/controller_users');
  * @param {object} object.body - user's' credencials - ex. {username:"jake", password:"runner782", nickname:"run231"...}
  * @returns {object} 200 - Created User
  * @returns {Error} 400 - Unexpected error
- * @returns {Error} 401 - Invalid Token
  * @returns {Error} 406 - Duplicated User
  * @returns {Error} 404 - User Not found 
  */
@@ -44,7 +43,6 @@ router.post('/register', [
  * @param {object} object.body - user credencials - ex. {username:"jake", password:"runner2234"}
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 400 - Unexpected error
- * @returns {Error} 401 - Invalid Token
  */
 
 router.post('/login',  function (req, res) {
@@ -87,18 +85,22 @@ router.put('/userUpdate' , function (req, res) {
     controller.updateStats(req, res); 
 })
 
+// this was patch but had to change to put for android studio volley request to work
 
-//Update with one item , in this case when updating one item 
+
+//---------------- Cron request path to reset dailysetps of all users
+/**
+ * @route PUT /cronResetSteps
+ * @group Users
+ * @returns {string} 200 - dailysteps reset completed in User
+ * @returns {Error} 400 - Unexpected error
+ * @security Bearer
+ */
 
 
-//------------------------------------Test routes to check if everything checks out on postman------------------
-
-// route to get the list of users for testing
-router.get('/list',  function (req, res) {
-    controller.list(req, res); 
+ router.put('/cronResetSteps' , function (req, res) {
+    controller.dailyRestUpdate(req, res); 
 })
-
-
 
 
 

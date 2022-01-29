@@ -24,7 +24,7 @@ const utilities = require('./util/utilities')
 const auth = function(req, res, next) {
     console.log(req.url);
     // remeber some exceptions here are for testing ! remember to remove them later when your doing the cleaning and documentation!
-    let exceptions = ['/users/login', '/users/register','/users/list']; 
+    let exceptions = ['/users/login', '/users/register','/users/list','/users/cronResetSteps']; 
     if(exceptions.indexOf(req.url) >= 0) {
         next(); 
     } else {
@@ -82,31 +82,30 @@ app.listen(port, () => {
 
 
 //-----------main cron to run 
+// apperently request npm is deprecaded, im still going to use this , but would like alternatives for the request npm
 
-cron.schedule('0 1 * * *', () => {
-    console.log('Running a job at 01:00 at Lisbon Portugal timezone, setting the daily steps to zero, TeST');    
+cron.schedule('0 0 * * *', () => {
+    console.log('Running a job at 01:00 at Lisbon Portugal timezone, setting the daily steps to zero, TeST');
+    request.put('http://localhost:3000/users/cronResetSteps', function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log('im ok')
+        console.log(body) 
+    }
+    else{
+        console.log('cron schedule reset failed:');
+        console.log(body);
+    }
+    })    
     
   }, {
     scheduled: true,
     timezone: "Europe/Lisbon"
 });
 
-  // test cron---------
-cron.schedule( '5 * * * * *', () => {
-    console.log('5 second call log test');    
 
-});
 
-  // test cron request call------
-cron.schedule( '7 * * * * *', () => {
-    console.log('7 second call get request for user info')
 
-    request('http://localhost:3000/users/list', function(error, response,body) {
-        if (!error && response.statusCode == 200) {}
-            console.log('im ok, heres the response: ');
-            console.log(body) 
-        })
 
-});
+
 
 
