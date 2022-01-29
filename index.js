@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose'); 
 const cron = require('node-cron');
+const request = require('request');
 const app = express(); 
 const port = process.env.PORT ||3000;
 const host = process.env.HOST || 'localhost'; 
@@ -76,7 +77,7 @@ app.listen(port, () => {
     console.log(`Server Running!!! http://${host}:${port}`)
 }) 
 
-//--------------crone request - execute
+//--------------crone request-------------------------------------------------
 
 
 
@@ -88,12 +89,24 @@ cron.schedule('0 1 * * *', () => {
   }, {
     scheduled: true,
     timezone: "Europe/Lisbon"
-  });
+});
 
   // test cron---------
-  cron.schedule( '15 * * * * *', () => {
-    console.log('15 second call log test');    
-    
-  });
+cron.schedule( '5 * * * * *', () => {
+    console.log('5 second call log test');    
+
+});
+
+  // test cron request call------
+cron.schedule( '7 * * * * *', () => {
+    console.log('7 second call get request for user info')
+
+    request('http://localhost:3000/users/list', function(error, response,body) {
+        if (!error && response.statusCode == 200) {}
+            console.log('im ok, heres the response: ');
+            console.log(body) 
+        })
+
+});
 
 
