@@ -79,9 +79,8 @@ app.listen(port, () => {
 //--------------crone request - execute
 
 
-//var request = require('request');
-var cron = require('cron');
 
+//-----------main cron to run 
 
 cron.schedule('0 1 * * *', () => {
     console.log('Running a job at 01:00 at Lisbon Portugal timezone, setting the daily steps to zero, TeST');    
@@ -90,3 +89,11 @@ cron.schedule('0 1 * * *', () => {
     scheduled: true,
     timezone: "Europe/Lisbon"
   });
+
+  // test cron---------
+  cron.schedule( '15 * * * * *', () => {
+    console.log('15 second call log test');    
+    
+  });
+
+
